@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "jsstore": "^4.5.2",
+    "sqlweb": "^1.6.2"
+  }
+}
