@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 		console.log("el_query: "+el_query.value)
 
 		try {
-			let connection = new JsStore.Connection()
+			let connection = new JsStore.Connection(new Worker('./node_modules/jsstore/dist/jsstore.worker.js'))
 			connection.addPlugin(SqlWeb);
 
 			//let ret = await connection.$sql.run(`create db ${el_dbname.value}`)
@@ -37,20 +37,24 @@ document.addEventListener("DOMContentLoaded", async ()=>{
 			}
 			
 			let isDbCreated = await connection.initDb(database);
+			console.log(isDbCreated)
 
-			let value = {
-				Name: 'Ivan',
-				Surname: 'Prez',
-				Gender: 'Male',
-				Age: 50
-			}
+			// let value = {
+			// 	Name: 'Ivan',
+			// 	Surname: 'Prez',
+			// 	Gender: 'Male',
+			// 	Age: 50
+			// }
 			
-			let insertCount = await connection.insert({
-				into: 'Users',
-				values: [value]
-			});
+			// let insertCount = await connection.insert({
+			// 	into: 'Users',
+			// 	values: [value]
+			// });
 
-			console.log(insertCount)
+			// console.log(insertCount)
+
+			let ret = await connection.$sql.run(el_query.value)
+			console.log(ret)
 		}
 		catch (Ex) {
 			console.error(Ex)
